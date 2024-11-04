@@ -129,7 +129,7 @@ namespace raptor
         public ReactiveCommand<Unit, Unit> CopyCommand { get; set; }
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; set; }
 
-        private void initContextMenu()
+        protected void initContextMenu()
         {
             PasteCommand = ReactiveCommand.Create(OnPasteCommand);
             InsertAssignmentCommand = ReactiveCommand.Create(OnInsertAssignmentCommand);
@@ -584,6 +584,11 @@ namespace raptor
             Start = new Oval_Procedure(End, Visual_Flow_Form.flow_height, Visual_Flow_Form.flow_width, "Oval", incoming_params, ins, outs);
             this.kind = Subchart_Kinds.Procedure;
             //Start.Text = "start";
+        }
+        [OnDeserialized()]
+        private void OnDeserialized(StreamingContext sc)
+        {
+            this.initContextMenu();
         }
 
     }

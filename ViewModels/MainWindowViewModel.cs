@@ -269,6 +269,8 @@ namespace RAPTOR_Avalonia_MVVM.ViewModels
         [KnownType(typeof(Loop))]
         [KnownType(typeof(Rectangle.Kind_Of))]
         [KnownType(typeof(raptor.CommentBox))]
+        [KnownType(typeof(Procedure_Chart))]
+        [KnownType(typeof(Subchart))]
         [DataContract]
         private class Raptor_File
         {
