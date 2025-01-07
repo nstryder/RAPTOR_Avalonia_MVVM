@@ -1489,7 +1489,11 @@ namespace parse_tree
             if (sub.Start.GetType() == typeof(Oval_Procedure))
             { //if its a user procedure
                 Runtime.processing_parameter_list = true;
-                numbers.value[] ps = param_list.Execute(l);
+                numbers.value[] ps = new numbers.value[0];
+                if (param_list != null)
+                {
+                    ps = param_list.Execute(l);
+                }
 
                 Oval_Procedure st = ((Oval_Procedure)sub.Start);
                 string[] paramNames = st.param_names;

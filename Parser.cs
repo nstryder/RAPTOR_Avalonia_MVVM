@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using raptor;
+using RAPTOR_Avalonia_MVVM.ViewModels;
 
 namespace RAPTOR_Avalonia_MVVM
 {
@@ -955,12 +956,15 @@ namespace RAPTOR_Avalonia_MVVM
             }
             else
             {
-                if(Lexer.Is_Valid_Procedure(lexer.Get_Text(t.start, t.finish))){
-                    //Variable v = new Variable(lexer.Get_Text(t.start, t.finish), new numbers.value(){V=3});
-                    result = Parse_Tab_Proc_Call();
-                } else if(Plugins.Is_Procedure(lexer.Get_Text(t.start, t.finish))){
+                if (Plugins.Is_Procedure(lexer.Get_Text(t.start, t.finish)))
+                {
                     result = Parse_Plugin_Proc_Call();
                 }
+                else if (Lexer.Is_Valid_Procedure(lexer.Get_Text(t.start, t.finish)) || 
+                    MainWindowViewModel.GetMainWindowViewModel().AmLoading){
+                    //Variable v = new Variable(lexer.Get_Text(t.start, t.finish), new numbers.value(){V=3});
+                    result = Parse_Tab_Proc_Call();
+                }  
                 else{
                     Raise_Exception(t, lexer.Get_Text(t.start, t.finish) +
                         " is not a valid procedure name");

@@ -44,7 +44,7 @@ namespace RAPTOR_Avalonia_MVVM.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private string My_Title = "Raptor";
-
+        public bool AmLoading = false;
         public void Clear_Undo()
         {
             Undo_Stack.Clear_Undo(/*this*/);
@@ -241,6 +241,7 @@ namespace RAPTOR_Avalonia_MVVM.ViewModels
 
             try
             {
+                AmLoading = true;
                 if (dialog_fileName.EndsWith(".oldrap"))
                 {
                     await Load_Old_Raptor_File(dialog_fileName, stream);
@@ -256,6 +257,7 @@ namespace RAPTOR_Avalonia_MVVM.ViewModels
                 MessageBoxClass.Show(e.Message + "\n" + e.StackTrace + "\n" + "Invalid Filename:" + dialog_fileName, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            AmLoading = false;
         }
         [KnownType(typeof(logging_info.event_kind))]
         [KnownType(typeof(Component.FootPrint))]
