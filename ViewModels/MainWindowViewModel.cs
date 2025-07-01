@@ -1435,6 +1435,10 @@ namespace RAPTOR_Avalonia_MVVM.ViewModels
                                 Boolean_Expression r = (Boolean_Expression)temp.parse_tree;
                                 bool rel = r.Execute(l);
                                 parentComponent = temp;
+                                if (Component.reverse_loop_logic)
+                                {
+                                    rel = !rel;
+                                }
 
                                 if (rel) // evaluate the diamond
                                 {
