@@ -80,7 +80,7 @@ namespace raptor
         internal CommentBox My_Comment;
         public static Mode Current_Mode = Mode.Intermediate;
 		public static bool USMA_mode = false;
-        public static bool _reverse_loop_logic = false;
+        public static bool _reverse_loop_logic = true;
         public static bool reverse_loop_logic
         {
             get
@@ -99,9 +99,9 @@ namespace raptor
         public static string BARTPE_ramdrive_path = "x:\\";
         public static string BARTPE_partition_path = "y:\\";
         public static bool VM = true;
-		public static bool negate_loops = false;
-       // [DataMember]
-        public static int current_serialization_version 
+		public static bool negate_loops = true;
+		// [DataMember]
+		public static int current_serialization_version 
         {
             get {
                 if (Current_Mode == Mode.Expert)

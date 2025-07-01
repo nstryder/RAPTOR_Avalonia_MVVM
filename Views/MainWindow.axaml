@@ -40,6 +40,11 @@
         <MenuItem Header="Run Compiled" Command="{Binding OnRunCompiledCommand}"/>
         <Separator/>
         <MenuItem Header="_Clear all breakpoints" Command="{Binding OnClearBreakpointsCommand}" HotKey="F10"/>
+        <MenuItem Header="Invert Loop Logic">
+          <MenuItem.Icon>
+            <CheckBox IsChecked="{Binding ReverseLoopLogicToggle}" ClipToBounds="False"/>
+          </MenuItem.Icon>
+        </MenuItem>
       </MenuItem>
 
 <!--
@@ -50,15 +55,15 @@
             </MenuItem.Styles>
 -->
       
-      <MenuItem Header="_Generate" Items="{Binding getGenerateMenuItems}" Classes="SubItems">
-            <MenuItem.Styles>
-                <Style Selector="MenuItem.SubItems MenuItem">
-                    <Setter Property="Header" Value="{Binding Header}"/>
-                    <Setter Property="Command" Value="{Binding Command}"/>
-                </Style>
-            </MenuItem.Styles>
-            
-      </MenuItem>
+      <!-- <MenuItem Header="_Generate" Items="{Binding getGenerateMenuItems}" Classes="SubItems"> -->
+      <!--       <MenuItem.Styles> -->
+      <!--           <Style Selector="MenuItem.SubItems MenuItem"> -->
+      <!--               <Setter Property="Header" Value="{Binding Header}"/> -->
+      <!--               <Setter Property="Command" Value="{Binding Command}"/> -->
+      <!--           </Style> -->
+      <!--       </MenuItem.Styles> -->
+      <!--        -->
+      <!-- </MenuItem> -->
 
 
 

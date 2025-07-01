@@ -49,6 +49,12 @@ namespace RAPTOR_Avalonia_MVVM.ViewModels
         {
             Undo_Stack.Clear_Undo(/*this*/);
         }
+        
+        public static bool ReverseLoopLogicToggle
+        {
+            get => Component.reverse_loop_logic;
+            set => Component.reverse_loop_logic = value;
+        }
 
         public int mainIndex
         {
@@ -1554,6 +1560,8 @@ namespace RAPTOR_Avalonia_MVVM.ViewModels
             mc.Text += "Run Paused!\n";
             myTimer.Stop();
         }
+        
+        
 
         public void Create_Flow_graphx()
         {
