@@ -27,12 +27,20 @@
     </TextBlock>
     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="10">
       <TextBlock>Set</TextBlock>
-      <TextBox Name="typingName" Width="200" Watermark="variable" Text="{Binding setValue}" AcceptsReturn="False" IsReadOnly="False"></TextBox>
+      <TextBox Name="typingName" Width="200" Watermark="variable" Text="{Binding setValue}" AcceptsReturn="False" IsReadOnly="False">
+        <TextBox.KeyBindings>
+          <KeyBinding Command="{Binding OnDoneCommand}" Gesture="Enter"/>
+        </TextBox.KeyBindings>
+      </TextBox>
     </StackPanel>
     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="10">
       <TextBlock>to</TextBlock>
       <ScrollViewer>
-      <TextBox Name="typingVal" Width="200" Watermark="value" Text="{Binding toValue}" AcceptsReturn="False" IsReadOnly="False"></TextBox>
+      <TextBox Name="typingVal" Width="200" Watermark="value" Text="{Binding toValue}" AcceptsReturn="False" IsReadOnly="False">
+        <TextBox.KeyBindings>
+          <KeyBinding Command="{Binding OnDoneCommand}" Gesture="Enter"/>
+        </TextBox.KeyBindings>
+      </TextBox>
       </ScrollViewer>
     </StackPanel>
     

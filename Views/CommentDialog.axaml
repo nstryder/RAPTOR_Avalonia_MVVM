@@ -21,7 +21,11 @@
       Enter a comment!
     </TextBlock>
     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="10">
-      <TextBox Width="200" Height="200" Watermark="comment" Text="{Binding Text}" AcceptsReturn="True" IsReadOnly="False"></TextBox>
+      <TextBox Width="200" Height="200" Watermark="comment" Text="{Binding Text}" AcceptsReturn="True" IsReadOnly="False">
+        <TextBox.KeyBindings>
+          <KeyBinding Command="{Binding OnDoneCommand}" Gesture="Enter"/>
+        </TextBox.KeyBindings>
+      </TextBox>
     </StackPanel>
   <Button HorizontalAlignment="Center" Command="{Binding OnDoneCommand}">Done</Button>
   </StackPanel>

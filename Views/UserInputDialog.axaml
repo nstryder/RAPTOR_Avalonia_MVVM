@@ -21,7 +21,11 @@
     <TextBlock HorizontalAlignment="Center">
     </TextBlock>
     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="10">
-      <TextBox Width="200" Watermark="value" Text="{Binding getVariable}" AcceptsReturn="False" IsReadOnly="False"></TextBox>
+      <TextBox Width="200" Watermark="value" Text="{Binding getVariable}" AcceptsReturn="False" IsReadOnly="False">
+        <TextBox.KeyBindings>
+          <KeyBinding Command="{Binding OnDoneCommand}" Gesture="Enter"/>
+        </TextBox.KeyBindings>
+      </TextBox>
     </StackPanel>
   <Button HorizontalAlignment="Center" Command="{Binding OnDoneCommand}">Done</Button>
   </StackPanel>
