@@ -101,10 +101,10 @@
       <Button ToolTip.Tip="Open" Command="{Binding OnOpenCommand}">
         <PathIcon Data="{StaticResource FolderOpenRegular}" />
       </Button>
-      <Separator Margin="6 0 0 0" />
       <Button ToolTip.Tip="Save" Command="{Binding OnSaveCommand2}">
         <PathIcon Data="{StaticResource SaveRegular}" />
       </Button>
+      <Separator Margin="6 0 0 0" />
       <Button ToolTip.Tip="Cut" Command="{Binding OnCutCommand}">
         <PathIcon Data="{StaticResource CutRegular}" />
       </Button>
