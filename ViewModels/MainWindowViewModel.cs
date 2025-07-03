@@ -439,10 +439,10 @@ namespace RAPTOR_Avalonia_MVVM.ViewModels
                             bformatter, stream);
                     }
                     else */
-                    if (incoming_reverse_loop_logic != Component.reverse_loop_logic)
-                    {
-                        Component.negate_loops = true;
-                    }
+                    // if (incoming_reverse_loop_logic != Component.reverse_loop_logic)
+                    // {
+                    //     Component.negate_loops = true;
+                    // }
                     for (int i = mainIndex; i < num_pages; i++)
                     {
                         object o = bformatter.Deserialize(stream);

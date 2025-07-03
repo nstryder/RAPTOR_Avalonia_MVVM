@@ -99,7 +99,7 @@ namespace raptor
         public static string BARTPE_ramdrive_path = "x:\\";
         public static string BARTPE_partition_path = "y:\\";
         public static bool VM = true;
-		public static bool negate_loops = true;
+		public static bool negate_loops = false;
 		// [DataMember]
 		public static int current_serialization_version 
         {
