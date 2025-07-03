@@ -16,6 +16,10 @@ namespace RAPTOR_Avalonia_MVVM.Controls
 
     class SymbolsControl : Control
     {
+	    private const int FontSize = 14;
+	    private const int DrawStartY = 30;
+	    private const int DrawLabelYOffset = 6;
+	    private const int DrawYGap = 24;
 
 		public const string assignment_fig = "0";
 		public const string call_fig = "1";
@@ -35,9 +39,9 @@ namespace RAPTOR_Avalonia_MVVM.Controls
         private Oval_Return RETURN;
         private IF_Control IFC;
         private Loop LP;
-		public const int control_height = 24, control_width = 36;
+		public const int control_height = 36, control_width = 48;
 		// location of controls in left panel
-		public const int control_X = 65;
+		public const int control_X = 100;
 		public static SymbolsControl? theControl;
 
 		static SymbolsControl()
@@ -65,8 +69,9 @@ namespace RAPTOR_Avalonia_MVVM.Controls
             RETURN = new Oval_Return(control_height, control_width,
                 "Return");
             IFC = new IF_Control(control_height - 15, control_width - 15, "IF_Control");
+            IFC.override_text_disabled = true;
             LP = new Loop(control_height - 15, control_width - 15, "Loop");
-			
+            LP.override_text_disabled = true;
 			//initialize dragData
 			dragData.Set(DataFormats.Text, noSelect);
 			AddHandler(DragDrop.DropEvent, Drop);
@@ -188,7 +193,7 @@ namespace RAPTOR_Avalonia_MVVM.Controls
 				new Rect(new Point(0, 0), new Point(2*control_X, this.Height)));
 			Avalonia.Media.FormattedText symbolsText = new Avalonia.Media.FormattedText(
 				"Symbols", new Avalonia.Media.Typeface("arial",FontStyle.Normal,FontWeight.Bold), 
-				10, Avalonia.Media.TextAlignment.Center,
+				FontSize, Avalonia.Media.TextAlignment.Center,
 				Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 			//symbolsText.
 			drawingContext.DrawText(PensBrushes.blackbrush,
@@ -230,29 +235,39 @@ namespace RAPTOR_Avalonia_MVVM.Controls
 			{
 				RETURN.selected = true;
 			}
-			ASGN.draw(drawingContext, control_X, 25);
+			
+			// We have to lay this out imperatively to avoid magic numbers
+			// Follows this pattern:
+			// Draw Symbol, move ypos by Symbol height + small offset
+			// Draw Symbol Label, move ypos by fontsize + gap between symbols
+			int currentDrawY = DrawStartY;
+			ASGN.draw(drawingContext, control_X, currentDrawY);
 			ASGN.X = control_X;
-			ASGN.Y = 25;
+			ASGN.Y = currentDrawY;
+
+			currentDrawY += ASGN.head_height + DrawLabelYOffset;
 			if (!Component.USMA_mode)
 			{
 				Avalonia.Media.FormattedText assignmentText = new Avalonia.Media.FormattedText(
-					"Assignment", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+					"Assignment", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 					Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 				drawingContext.DrawText(PensBrushes.blackbrush,
-					new Point(control_X - ASGN.W / 2 - 8, 50),
+					new Point(control_X - ASGN.W / 2 - 8, currentDrawY),
 					assignmentText);
 			}
 			else
 			{
 				Avalonia.Media.FormattedText processText = new Avalonia.Media.FormattedText(
-					"Process", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+					"Process", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 					Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 				drawingContext.DrawText(PensBrushes.blackbrush,
-					new Point(control_X - ASGN.W / 2 - 5, 50),
+					new Point(control_X - ASGN.W / 2 - 5, currentDrawY),
 					processText);
 
 			}
-			CALL.Y = 68;
+			currentDrawY += FontSize + DrawYGap;
+			
+			CALL.Y = currentDrawY;
 			if (Component.Current_Mode == Mode.Expert)
 			{
 				CALL.X = control_X - 3 * ASGN.W / 4;
@@ -260,85 +275,103 @@ namespace RAPTOR_Avalonia_MVVM.Controls
 				RETURN.Y = CALL.Y;
 				RETURN.draw(drawingContext, RETURN.X, RETURN.Y);
 				Avalonia.Media.FormattedText returnText = new Avalonia.Media.FormattedText(
-					"Return", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+					"Return", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 					Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 				drawingContext.DrawText(PensBrushes.blackbrush,
-					new Point(control_X + ASGN.W / 2 - 8, 93),
+					new Point(control_X + ASGN.W / 2 - 8, currentDrawY),
 					returnText);
 			}
 			else
 			{
 				CALL.X = control_X;
 			}
-			CALL.draw(drawingContext, CALL.X, 68);
+			CALL.draw(drawingContext, CALL.X, currentDrawY);
 
+			currentDrawY += CALL.head_height + DrawLabelYOffset;
 			if (!Component.USMA_mode)
 			{
 				Avalonia.Media.FormattedText callText = new Avalonia.Media.FormattedText(
-					"Call", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+					"Call", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 					Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 				drawingContext.DrawText(PensBrushes.blackbrush,
-					new Point(CALL.X - 10, 93),
+					new Point(CALL.X - FontSize, currentDrawY),
 					callText);
 			}
 			else
 			{
 				Avalonia.Media.FormattedText flowTransferText = new Avalonia.Media.FormattedText(
-					"Flow transfer", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+					"Flow transfer", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 					Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 				drawingContext.DrawText(PensBrushes.blackbrush,
-					new Point(CALL.X - ASGN.W / 2 - 20, 93),
+					new Point(CALL.X - ASGN.W / 2 - 20, currentDrawY),
 					flowTransferText); 
 			}
-			INPUT.draw(drawingContext, control_X - 3 * ASGN.W / 4, 111);
+			currentDrawY += FontSize + DrawYGap;
+			
+			INPUT.draw(drawingContext, control_X - 3 * ASGN.W / 4, currentDrawY);
 			INPUT.X = control_X - 3 * ASGN.W / 4;
-			INPUT.Y = 111;
-			Avalonia.Media.FormattedText inputText = new Avalonia.Media.FormattedText(
-				"Input", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
-				Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
-			drawingContext.DrawText(PensBrushes.blackbrush,
-				new Point(control_X - INPUT.W - 4, 136),
-				inputText); 
-
-			OUTPUT.draw(drawingContext, control_X + 3 * ASGN.W / 4 + 3, 111);
+			INPUT.Y = currentDrawY;
+			
+			OUTPUT.draw(drawingContext, control_X + 3 * ASGN.W / 4 + 3, currentDrawY);
 			OUTPUT.X = control_X + 3 * ASGN.W / 4 + 3;
-			OUTPUT.Y = 111;
+			OUTPUT.Y = currentDrawY;
+			
+			currentDrawY += INPUT.head_height + DrawLabelYOffset;
+			
+			Avalonia.Media.FormattedText inputText = new Avalonia.Media.FormattedText(
+				"Input", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
+				Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
+			drawingContext.DrawText(PensBrushes.blackbrush,
+				new Point(control_X - INPUT.W - 4, currentDrawY),
+				inputText); 
+			
 			Avalonia.Media.FormattedText outputText = new Avalonia.Media.FormattedText(
-				"Output", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+				"Output", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 				Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 			drawingContext.DrawText(PensBrushes.blackbrush,
-				new Point(control_X + ASGN.W / 2 - 4, 136),
-				outputText); 
+				new Point(control_X + ASGN.W / 2 - 4, currentDrawY),
+				outputText);
 
-			IFC.draw(drawingContext, control_X, 153);
+			currentDrawY += FontSize + DrawYGap;
+
+			IFC.draw(drawingContext, control_X, currentDrawY);
 			IFC.X = control_X;
-			IFC.Y = 153;
+			IFC.Y = currentDrawY;
+
+			const int additionalIfcOffset = 12;
+			currentDrawY += IFC.head_height + DrawLabelYOffset + additionalIfcOffset;
 			Avalonia.Media.FormattedText selectionText = new Avalonia.Media.FormattedText(
-				"Selection", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+				"Selection", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 				Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 			drawingContext.DrawText(PensBrushes.blackbrush,
-				new Point(control_X - ASGN.W / 2 - 4, 168),
+				new Point(control_X - ASGN.W / 2 - 4, currentDrawY),
 				selectionText); 
-			LP.draw(drawingContext, control_X, 183);
+			
+			currentDrawY += FontSize + DrawYGap;
+			
+			LP.draw(drawingContext, control_X, currentDrawY);
 			LP.X = control_X;
-			LP.Y = 183;
+			LP.Y = currentDrawY;
+
+			const int additionalLpOffset = 34;
+			currentDrawY += control_height + additionalLpOffset + DrawLabelYOffset;
+			
 			if (!Component.USMA_mode)
 			{
 				Avalonia.Media.FormattedText loopText = new Avalonia.Media.FormattedText(
-					"Loop", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+					"Loop", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 					Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 				drawingContext.DrawText(PensBrushes.blackbrush,
-					new Point(control_X - ASGN.W / 2 + 8, 218),
+					new Point(control_X - ASGN.W / 2 + 8, currentDrawY),
 					loopText); 
-
 			}
 			else
 			{
 				Avalonia.Media.FormattedText iterationText = new Avalonia.Media.FormattedText(
-					"Iteration", new Avalonia.Media.Typeface("arial"), 10, Avalonia.Media.TextAlignment.Center,
+					"Iteration", new Avalonia.Media.Typeface("arial"), FontSize, Avalonia.Media.TextAlignment.Center,
 					Avalonia.Media.TextWrapping.NoWrap, Avalonia.Size.Infinity);
 				drawingContext.DrawText(PensBrushes.blackbrush,
-					new Point(control_X - ASGN.W / 2 - 8, 218),
+					new Point(control_X - ASGN.W / 2 - 8, currentDrawY),
 					iterationText); 
 
 			}

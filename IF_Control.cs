@@ -16,6 +16,7 @@ namespace raptor
 	//[DataContract]
 	public class IF_Control : BinaryComponent
 	{
+		public bool override_text_disabled = false;
 		//[DataMember]
 		public int bottom, min_bottom;
         //[DataMember]
@@ -267,7 +268,7 @@ namespace raptor
 			int left_bottom, right_bottom;
 			bool draw_text;
 
-			if ((this.scale <= .4) || (this.head_heightOrig < 10))
+			if ((this.scale <= .4) || (this.head_heightOrig < 10) || override_text_disabled)
 			{
 				draw_text = false;
 			}

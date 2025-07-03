@@ -35,7 +35,7 @@ namespace RAPTOR_Avalonia_MVVM.Views
                 
             };
 
-            this.FindControl<TabControl>("tc12").PointerPressed += (s, e) =>
+            this.FindControl<TabControl>("Tc12").PointerPressed += (s, e) =>
             {
                 if (e.GetCurrentPoint((TabControl)s).Properties.IsRightButtonPressed && e.Pointer.Type == PointerType.Mouse)
                 {
@@ -44,7 +44,7 @@ namespace RAPTOR_Avalonia_MVVM.Views
                 }
             };
 
-            this.FindControl<TabControl>("tc12").AddHandler(DragDrop.DropEvent, FlowchartControl.sDrop);
+            this.FindControl<TabControl>("Tc12").AddHandler(DragDrop.DropEvent, FlowchartControl.sDrop);
 
             this.KeyDown += (s, e) =>
             {

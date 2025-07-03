@@ -33,6 +33,7 @@ namespace raptor
 		//[DataMember]
 		public int line_height;
 		public bool light_head;
+		public bool override_text_disabled = false;
 		private bool has_diamond_breakpoint;
 		//[DataMember]
 		private String LP;
@@ -319,7 +320,7 @@ namespace raptor
 
 			//gr.SmoothingMode=System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
-			if ((this.scale <= .4) || (this.head_heightOrig < 10))
+			if ((this.scale <= .4) || (this.head_heightOrig < 10) || override_text_disabled)
 			{
 				draw_text = false;
 			}
