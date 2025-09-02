@@ -17,12 +17,16 @@ namespace RAPTOR_Avalonia_MVVM.Views
             this.AttachDevTools();
 #endif
             DataContext = new RAPTOR_Avalonia_MVVM.ViewModels.UserInputDialogViewModel(p, v, this, compileMode);
-
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void UserInput_OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
+        {
+            this.FindControl<TextBox>("UserInput").Focus();
         }
     }
 }
