@@ -189,50 +189,34 @@ namespace raptor
 			// I only need to do this once, since these are static variables
 			if (this.scale >= 2.75f)
 			{
-				PensBrushes.default_arial = PensBrushes.arial24;
-				PensBrushes.default_times = PensBrushes.times30;
 				textSize = 24;
 			}
 			else if (this.scale >= 1.75f)
 			{
-				PensBrushes.default_arial = PensBrushes.arial16;
-				PensBrushes.default_times = PensBrushes.times18;
 				textSize = 18;
 			}
 			else if (this.scale >= 1.5f)
 			{
-				PensBrushes.default_arial = PensBrushes.arial14;
-				PensBrushes.default_times = PensBrushes.times16;
 				textSize = 16;
 			}
 			else if (this.scale >= 1.25f)
 			{
-				PensBrushes.default_arial = PensBrushes.arial12;
-				PensBrushes.default_times = PensBrushes.times14;
 				textSize = 14;
 			}
 			else if (this.scale >= 1.0f)
 			{
-				PensBrushes.default_arial = PensBrushes.arial10;
-				PensBrushes.default_times = PensBrushes.times12;
 				textSize = 12;
 			}
 			else if (this.scale >= 0.8f)
 			{
-				PensBrushes.default_arial = PensBrushes.arial8;
-				PensBrushes.default_times = PensBrushes.times10;
 				textSize = 10;
 			}
 			else if (this.scale >= 0.6f)
 			{
-				PensBrushes.default_arial = PensBrushes.arial6;
-				PensBrushes.default_times = PensBrushes.times8;
 				textSize = 8;
 			}
 			else if (this.scale >= 0.4f)
 			{
-				PensBrushes.default_arial = PensBrushes.arial4;
-				PensBrushes.default_times = PensBrushes.times6;
 				textSize = 6;
 			}
 			base.Scale(new_scale);
